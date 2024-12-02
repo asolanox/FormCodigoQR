@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Datos Personales con Codigo QR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Color de fondo */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: beige; /* Color de fondo del formulario */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+            color: orange; /* Color del título */
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: black; /* Color de las etiquetas */
+        }
+        input[type="text"] {
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: orange; /* Color de los botones */
+            color: white; /* Color del texto de los botones */
+        }
+        button:hover {
+            background-color: black; /* Color al pasar el mouse */
+        }
+        #qrCode {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <p>
+        <span>
+            UNIVERSIDAD AUTONOMA DE SANTO DOMINGO<br>
+            Escuela de Informatica<br>
+            Alexander Solano de la Cruz, AB5972<br>
+            Prof. Lic. Radhames Silverio<br>
+            
+        </span>
+    </p>
+    
+
+    <h1><center><i>Formulario Generador Código QR</i></center></h1>
+    
+
+    <div class="container">
+        <h2>Datos Personales</h2>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Ingresa tu nombre">
+
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" placeholder="Ingresa tus apellidos">
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" placeholder="Ingresa tu teléfono">
+
+        <button onclick="limpiarDatos()">Limpiar Datos</button>
+        <button onclick="generarCodigoQR()">Generar Código QR</button>
+        <button onclick="cerrarAplicacion()">Cerrar Aplicación</button>
+
+        <div id="qrCode"></div>
+    </div>
+
+    <script>
+        function limpiarDatos() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('apellidos').value = '';
+            document.getElementById('telefono').value = '';
+            document.getElementById('qrCode').innerHTML = ''; // Limpiar QR
+        }
+
+        function generarCodigoQR() {
+            const nombre = document.getElementById('nombre').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const telefono = document.getElementById('telefono').value;
+
+            const datos = `Nombre: ${nombre}, Apellidos: ${apellidos}, Teléfono: ${telefono}`;
+            const qrCodeDiv = document.getElementById('qrCode');
+            qrCodeDiv.innerHTML = ''; // Limpiar QR anterior
+
+            // Generar QR usando una API gratuita
+            const qrCodeImage = document.createElement('img');
+            qrCodeImage.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(datos)}&size=150x150`;
+            qrCodeDiv.appendChild(qrCodeImage);
+        }
+
+        function cerrarAplicacion() {
+            window.close();
+        }
+    </script>
+</body>
+</html>
+
+
+
+
